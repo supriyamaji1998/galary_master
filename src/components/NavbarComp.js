@@ -43,6 +43,7 @@ export default class NavbarComp extends Component {
             alignItems: "center",
             justifyContent: "center",
           }} //styling Navbar
+          fixed="top"
         >
           <Navbar.Brand href="#">Search Photos</Navbar.Brand>
           {/* <Navbar id="navbarScroll"> */}
