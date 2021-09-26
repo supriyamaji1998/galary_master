@@ -10,13 +10,27 @@ export default class NavbarComp extends Component {
     apiKey: "19066289-56c3481c5b245d604609c2192",
     imagesArr: [],
   };
+  componentDidMount() {
+    axios
+      .get(
+        `${this.state.apiUrl}/?key=${this.state.apiKey}&q=popular&image_type=photo&safesearch=true`
+      )
+      .then((res) => this.setState({ imagesArr: res.data.hits }))
+      .catch((err) => console.log(err));
+  }
 
   OnTextChange = (e) => {
     const val = e.target.value;
 
     this.setState({ searchText: e.target.value }, () => {
       if (val === "") {
-        this.setState({ imagesArr: [] });
+        // this.setState({ imagesArr: [] });
+        axios
+          .get(
+            `${this.state.apiUrl}/?key=${this.state.apiKey}&q=popular&image_type=photo&safesearch=true`
+          )
+          .then((res) => this.setState({ imagesArr: res.data.hits }))
+          .catch((err) => console.log(err));
       } else {
         axios
           .get(
@@ -43,15 +57,10 @@ export default class NavbarComp extends Component {
             alignItems: "center",
             justifyContent: "center",
           }} //styling Navbar
-          fixed="top"
+          sticky="top"
         >
           <Navbar.Brand href="#">Search Photos</Navbar.Brand>
-          {/* <Navbar id="navbarScroll"> */}
-          {/* <Nav
-          className="mr-auto my-2 my-lg-0"
-          style={{ maxHeight: "100px" }}
-          navbarScroll
-        ></Nav> */}
+
           <Form className="d-flex">
             <FormControl
               type="search"
